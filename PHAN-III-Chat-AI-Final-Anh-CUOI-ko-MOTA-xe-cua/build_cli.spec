@@ -1,4 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
+# Build spec cho command-line version (không dùng GUI)
 
 import sys
 import os
@@ -14,8 +15,6 @@ data_files = [
     ('character_dictionary.json', '.'),
     ('extras_worlds.json', '.'),
     ('scenes.txt', '.'),
-    ('CAC-GOC-CHUP.txt', '.'),
-    ('README.md', '.'),
 ]
 
 # Kiểm tra và thêm các file nếu tồn tại
@@ -27,7 +26,7 @@ for file_path, dest in data_files[:]:
 block_cipher = None
 
 a = Analysis(
-    ['gui_app.py'],  # File chính để chạy GUI
+    ['generate_prompts.py'],  # CLI version - không cần GUI
     pathex=[str(current_dir)],
     binaries=[],
     datas=data_files,
@@ -39,12 +38,11 @@ a = Analysis(
         'layer_rules',
         'layer_filters',
         'license_manager',
-        'generate_prompts',
     ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=['tkinter', 'matplotlib', 'PyQt5', 'PySide2'],  # Loại bỏ GUI libraries
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=block_cipher,
@@ -60,17 +58,16 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='FilmAI-PromptGenerator',
+    name='FilmAI-CLI',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=False,  # Ẩn console window (chỉ chạy GUI)
+    console=True,  # Console app
     disable_windowed_traceback=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=None,  # Có thể thêm icon.ico nếu có
 )

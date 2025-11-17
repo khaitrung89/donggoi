@@ -5,6 +5,7 @@ import sys
 import os
 from pathlib import Path
 import subprocess
+import shutil
 
 # Import các module chính của tool
 from license_manager import check_license, request_license
@@ -222,13 +223,16 @@ class PromptGeneratorGUI:
         try:
             # Backup file gốc nếu có
             if original_scenes.exists():
-                original_scenes.rename(backup_name)
-            
-            # Copy file được chọn thành scenes.txt
-            Path(input_file).rename(original_scenes)
-            
+                shutil.move(str(original_scenes), str(backup_name))
+
+            # Copy file được chọn thành scenes.txt (KHÔNG xóa file gốc)
+            shutil.copy2(input_file, str(original_scenes))
+
         except Exception as e:
             self.log_message(f"❌ Lỗi khi chuẩn bị file: {e}")
+            # Khôi phục file backup nếu có lỗi
+            if backup_name.exists() and not original_scenes.exists():
+                shutil.move(str(backup_name), str(original_scenes))
             return
         
         # Cập nhật giao diện
@@ -299,14 +303,14 @@ class PromptGeneratorGUI:
         try:
             original_scenes = Path("scenes.txt")
             backup_name = Path("scenes_backup.txt")
-            
-            # Xóa file hiện tại
+
+            # Xóa file tạm (copy của input file)
             if original_scenes.exists():
                 original_scenes.unlink()
-            
-            # Khôi phục file backup
+
+            # Khôi phục file backup nếu có
             if backup_name.exists():
-                backup_name.rename(original_scenes)
+                shutil.move(str(backup_name), str(original_scenes))
                 
         except Exception as e:
             self.log_message(f"⚠️ Cảnh báo: Không thể khôi phục file gốc: {e}")
