@@ -1,0 +1,43 @@
+# TRACKING SHOTS
+tracking shot
+side tracking shot
+front tracking shot
+tracking backward
+tracking backward slight rotation
+low-angle tracking shot
+over-shoulder tracking
+dynamic angled tracking 25 degrees
+
+# ORBIT / ARC
+orbit shot 180 degrees
+orbit shot 270 degrees
+orbit left to front
+orbit from behind to front
+arc shot
+arc from back to front
+orbit while tracking
+
+# CRANE / TILT
+crane up
+crane down
+crane up pull back
+tilt up
+tilt down
+
+# CINEMATIC REVEAL
+reveal shot
+pan right reveal
+pan left reveal
+arc reveal
+crane up reveal
+
+# STATIC SHOTS
+close-up shot
+extreme close-up shot
+medium close-up
+medium shot
+wide shot
+ultra wide shot
+low angle shot
+high angle shot
+over-shoulder shot
