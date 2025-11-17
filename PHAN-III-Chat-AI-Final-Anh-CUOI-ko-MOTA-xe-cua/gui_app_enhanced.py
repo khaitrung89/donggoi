@@ -650,6 +650,9 @@ class PromptGeneratorGUI:
         """Di chuyển output files sang thư mục đã chọn"""
         output_dir = Path(self.config['output_dir'])
 
+        # Tạo thư mục nếu chưa tồn tại
+        output_dir.mkdir(parents=True, exist_ok=True)
+
         files_to_move = [
             ('output_prompts.txt', self.config['json_output']),
             ('final_prompts_en.txt', self.config['en_output']),
