@@ -1,8 +1,38 @@
-# 🎬 FilmAI XE-CUA-2 v2.0 - Enhanced Edition
+# 🎬 FilmAI XE-CUA-2 v2.0 - Full Workflow Edition
 
-## 🆕 WORKFLOW ĐẦY ĐỦ 5 BƯỚC
+## 🆕 PHIÊN BẢN MỚI NHẤT: FULL WORKFLOW GUI
 
-Hệ thống tạo phim AI hoàn chỉnh từ ý tưởng đến prompts với GUI enhanced!
+### ⭐ **gui_app_full_workflow.py** - Đầy đủ 5 bước tích hợp!
+
+**MỚI NHẤT 2025-11-18:** GUI hoàn chỉnh với **ĐẦY ĐỦ 5 BƯỚC WORKFLOW** từ story_idea.txt → final outputs!
+
+**Tính năng nổi bật:**
+- 📝 **Story Idea Form** - Nhập/Import ý tưởng phim ngay trong GUI
+- 1️⃣ **Step 1: Generate Chapters** - Tự động từ story_idea.txt
+- 2️⃣ **Step 2: Generate Scenes** - Chọn số cảnh (40/70/100/custom)
+- 3️⃣ **Step 3: Generate Prompts** - Super JSON format
+- 4️⃣ **Step 4: Postprocess Clean** - Normalize & Name2 logic
+- 5️⃣ **Step 5: Translate EN/VI** - Dual language output
+- 🚀 **Run From Selector** - Bắt đầu từ bất kỳ bước nào
+- ⚡ **1-Click Full Workflow** - Chạy toàn bộ 5 bước liên tiếp
+
+---
+
+## 🆚 PHÂN BIỆT CÁC PHIÊN BẢN
+
+| File | Tính năng | Status |
+|------|-----------|--------|
+| `gui_app.py` | GUI v1.0 Basic | ⚠️ Deprecated |
+| `gui_app_enhanced.py` | GUI v2.0 với Settings Dialog | ✅ Good (chỉ có Step 3+5) |
+| **`gui_app_full_workflow.py`** | **GUI v2.0 ĐẦY ĐỦ 5 BƯỚC** | ⭐ **RECOMMENDED** |
+
+**Khuyến nghị:** Dùng **`gui_app_full_workflow.py`** cho trải nghiệm tốt nhất!
+
+---
+
+## 🎯 WORKFLOW ĐẦY ĐỦ 5 BƯỚC
+
+Hệ thống tạo phim AI hoàn chỉnh từ ý tưởng đến prompts với GUI full workflow!
 
 ---
 
@@ -92,57 +122,80 @@ final_prompts_en.txt + final_prompts_vi.txt
 
 ```
 PHAN-III-XE-CUA-2/
-├── gui_app_enhanced.py           # GUI v2.0 ⭐
-├── gui_app.py                    # GUI v1.0 (cũ)
+├── gui_app_full_workflow.py      # ⭐ GUI v2.0 FULL 5 STEPS (RECOMMENDED)
+├── gui_app_enhanced.py           # GUI v2.0 Enhanced (Step 3+5 only)
+├── gui_app.py                    # GUI v1.0 (deprecated)
 │
-├── generate_chapters_from_idea.py
-├── generate_scenes_from_chapters.py
-├── generate_prompts.py
-├── postprocess_output_prompts.py
-├── translate_prompts.py
+├── generate_chapters_from_idea.py   # Step 1
+├── generate_scenes_from_chapters.py # Step 2
+├── generate_prompts.py              # Step 3
+├── postprocess_output_prompts.py    # Step 4
+├── translate_prompts.py             # Step 5
 │
-├── build_enhanced.spec           # Build config v2.0 🆕
-├── build_enhanced.bat            # Build script v2.0 🆕
+├── build_full_workflow.spec      # 🆕 Build config FULL WORKFLOW
+├── build_full_workflow.bat       # 🆕 Build script FULL WORKFLOW
+├── build_enhanced.spec           # Build config v2.0 Enhanced
+├── build_enhanced.bat            # Build script v2.0 Enhanced
 │
-├── config.json                   # Settings (auto) 🆕
-├── api_keys.txt
-├── license_manager.py
+├── config.json                   # Settings (auto-generated)
+├── api_keys.txt                  # API keys (backward compat)
+├── license_manager.py            # License system
+├── character_dictionary.json     # Character definitions
+├── layer_rules.py                # Super JSON rules
+├── layer_filters.py              # Filters
 │
-├── story_idea.txt                # Input: Ý tưởng
-├── chapters.txt                  # Bước 1 → 2
-├── scenes.txt                    # Bước 2 → 3
-├── output_prompts.txt            # Bước 3 → 4
-├── output_prompts_clean.txt      # Bước 4 → 5
-├── final_prompts_en.txt          # Output EN
-└── final_prompts_vi.txt          # Output VI
+├── story_idea.txt                # 📝 Input: Ý tưởng phim
+├── chapters.txt                  # 📖 Output Step 1
+├── scenes.txt                    # 🎬 Output Step 2
+├── output_prompts.txt            # 📄 Output Step 3
+├── output_prompts_clean.txt      # ✨ Output Step 4
+├── final_prompts_en.txt          # 🇬🇧 Output Step 5 (EN)
+└── final_prompts_vi.txt          # 🇻🇳 Output Step 5 (VI)
 ```
 
 ---
 
 ## 🚀 CÁCH SỬ DỤNG
 
-### **Quick Start (5 phút):**
+### **Quick Start - FULL WORKFLOW (5 phút):**
 
 #### **1. Chạy App**
 ```bash
-python gui_app_enhanced.py
+python gui_app_full_workflow.py
 ```
 
-#### **2. Nhập License**
-```
-ABCD-EFGH-IJKL-MNOP
-```
+💡 **Lưu ý:** Dùng `gui_app_full_workflow.py` để có đầy đủ 5 bước!
 
-#### **3. Settings**
-- Click **⚙️ Settings**
-- **API Keys tab:** Paste các Gemini API keys
-- **Configuration tab:** Chọn model & options
-- **Output tab:** Chọn thư mục lưu
+#### **2. Kích Hoạt License**
+- Nhập license key mẫu: `ABCD-EFGH-IJKL-MNOP`
+- Click **✅ Kích hoạt**
+
+#### **3. Cấu Hình Settings**
+- Click **⚙️ Settings** (menu File)
+- **Tab 1 - 🔑 API Keys:**
+  - Paste Gemini API keys từ clipboard
+  - Mỗi key một dòng
+  - Lấy key tại: https://aistudio.google.com/apikey
+- **Tab 2 - ⚙️ Configuration:**
+  - Chọn **World Type:** Medieval/Modern/Fantasy
+  - Chọn **Model:** Gemini 2.5 Flash (khuyến nghị)
+  - **Chapter Settings:** Min=6, Max=12
+- **Tab 3 - 📁 Output:**
+  - Chọn thư mục lưu kết quả
+  - Tùy chỉnh tên file output nếu cần
 - Click **💾 Lưu**
 
-#### **4. Chuẩn bị Input**
+#### **4. Nhập Story Idea**
 
-Tạo/Edit `story_idea.txt`:
+**Cách 1: Nhập trực tiếp trong GUI**
+- Gõ ý tưởng phim vào khung **Story Idea**
+- Click **💾 Lưu story_idea.txt**
+
+**Cách 2: Import từ file**
+- Click **📂 Import từ file .txt**
+- Chọn file story_idea.txt có sẵn
+
+**Format mẫu:**
 ```
 TITLE: Hành Trình Của Lana
 WORLD: Medieval Fantasy
@@ -150,30 +203,63 @@ ACTS: 3
 TARGET_CHAPTERS: 8
 
 CHARACTERS:
-- Lana: Nữ chiến binh trẻ...
-- Adai: Pháp sư già...
-- Asuka: Cung thủ...
+- Lana: Nữ chiến binh trẻ tuổi, dũng cảm, tìm kiếm sức mạnh để cứu thế giới
+- Adai: Pháp sư già, người dẫn đường, giữ bí mật về quá khứ
+- Asuka: Cung thủ lạnh lùng, đồng minh không ngờ tới
 
 STORY:
-Act 1: Lana khám phá...
-Act 2: Cuộc chiến...
-Act 3: Kết thúc...
+Act 1 (Beginning): Lana sống trong làng nhỏ yên bình. Một ngày, làng bị tấn công bởi quái vật. Cô khám phá mình có sức mạnh đặc biệt và gặp Adai.
+
+Act 2 (Middle): Lana và Adai lên đường tìm 3 viên ngọc cổ đại. Họ gặp Asuka. Nhóm phải đối mặt với nhiều thử thách, chiến đấu với quái vật, giải mã bí ẩn.
+
+Act 3 (End): Cuộc chiến cuối cùng với Dark Lord. Lana phải hy sinh để cứu thế giới. Kết thúc: thế giới được cứu, nhưng có cái giá.
 ```
 
-#### **5. Generate**
-- Click **🚀 Bắt đầu Full Workflow**
-- Hoặc chọn **Start From:** để bắt đầu từ bước cụ thể
-- ☕ Đợi... (xem log)
+#### **5. Chọn Số Cảnh (Step 2)**
+- **~40 (Compact)** - Phim ngắn 20 phút
+- **~70 (Standard)** - Phim vừa 35 phút ⭐ Khuyến nghị
+- **~100 (Epic)** - Phim dài 50+ phút
+- **Custom** - Tự nhập số cảnh (20-200)
 
-#### **6. Kết Quả**
+#### **6. Chạy Workflow**
+
+**Option A: Chạy toàn bộ 5 bước**
+- Chọn **🚀 Chạy từ bước: Step 1**
+- Click **▶️ Chạy toàn bộ từ bước đã chọn**
+- ☕ Đợi 10-30 phút (tùy độ dài)
+- Xem log để theo dõi tiến trình
+
+**Option B: Chạy từng bước riêng**
+- Click **1️⃣ Generate Chapters** → đợi xong
+- Click **2️⃣ Generate Scenes** → đợi xong
+- Click **3️⃣ Generate Prompts** → đợi xong
+- Click **4️⃣ Postprocess Clean** → nhanh
+- Click **5️⃣ Translate EN/VI** → đợi xong
+
+**Option C: Tiếp tục từ bước bất kỳ**
+- Nếu đã có `chapters.txt`, chọn **Step 2** → chạy
+- Nếu đã có `scenes.txt`, chọn **Step 3** → chạy
+- Nếu chỉ muốn dịch lại, chọn **Step 5** → chạy
+
+#### **7. Kết Quả**
+
+Sau khi hoàn tất, files sẽ nằm trong thư mục output đã chọn:
+
 ```
-📁 Output Folder:
-   ├── chapters.txt
-   ├── scenes.txt
-   ├── output_prompts_clean.txt
-   ├── final_prompts_en.txt    ← Dùng cho AI Video
-   └── final_prompts_vi.txt    ← Dùng cho phụ đề/voice
+📁 Output Folder/
+   ├── output_prompts.txt            # JSON thô
+   ├── output_prompts_clean.txt      # JSON đã chuẩn hóa
+   ├── final_prompts_en.txt          # ⭐ Dùng cho AI Video (VEO/Sora/Runway)
+   └── final_prompts_vi.txt          # ⭐ Dùng cho phụ đề/voice
+
+📁 Working Directory/
+   ├── chapters.txt                  # Outline chapters
+   └── scenes.txt                    # Danh sách scenes
 ```
+
+**Sử dụng:**
+- **final_prompts_en.txt** → Import vào VEO, Sora, Runway, Dreamina
+- **final_prompts_vi.txt** → Tạo phụ đề hoặc voice Việt
 
 ---
 
@@ -195,12 +281,34 @@ Act 3: Kết thúc...
 
 ## 🔧 BUILD .EXE (Windows)
 
-### **Cách 1: Tự động**
+### **⭐ FULL WORKFLOW VERSION (Khuyến nghị)**
+
+#### **Cách 1: Tự động**
+```cmd
+build_full_workflow.bat
+```
+
+#### **Cách 2: Manual**
+```cmd
+pip install pyinstaller google-generativeai
+pyinstaller --clean --noconfirm build_full_workflow.spec
+```
+
+**Output:**
+```
+dist/XE-CUA-2-FilmAI-FullWorkflow.exe
+```
+
+---
+
+### **Enhanced Version (Chỉ Step 3+5)**
+
+#### **Cách 1: Tự động**
 ```cmd
 build_enhanced.bat
 ```
 
-### **Cách 2: Manual**
+#### **Cách 2: Manual**
 ```cmd
 pip install pyinstaller google-generativeai
 pyinstaller --clean --noconfirm build_enhanced.spec
@@ -210,6 +318,10 @@ pyinstaller --clean --noconfirm build_enhanced.spec
 ```
 dist/FilmAI-XE-CUA-2-v2.exe
 ```
+
+---
+
+**Lưu ý:** Build trên Windows, yêu cầu Python 3.8+ và PyInstaller.
 
 ---
 
