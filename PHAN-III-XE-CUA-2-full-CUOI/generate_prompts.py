@@ -1,8 +1,15 @@
 import json
+import sys
+import io
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 from ai_utils import call_gemini_text, NoValidAPIKeyError
+
+# Fix Unicode encoding on Windows console
+if sys.platform.startswith('win'):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 SCENES_FILE = Path("scenes.txt")
 OUTPUT_FILE = Path("output_prompts.txt")
