@@ -268,11 +268,13 @@ class SuperPromptGUI(tk.Tk):
         action_frame = ttk.Frame(main, style="Main.TFrame")
         action_frame.pack(fill=tk.X, padx=10, pady=(0, 10))
 
+        self.btn_b0_form = ttk.Button(action_frame, text="📝 B0 Form", command=self.open_b0_form)
         self.btn_save = ttk.Button(action_frame, text="💾 Save", command=self.save_current_step)
         self.btn_run_next = ttk.Button(action_frame, text="▶ Run Next Step", command=self.run_next_step)
         self.btn_run_pipeline = ttk.Button(action_frame, text="🚀 Run B2→B6 (One-click)", command=self.run_full_pipeline)
         self.btn_export = ttk.Button(action_frame, text="📤 Export Final", command=self.export_final)
 
+        self.btn_b0_form.pack(side=tk.LEFT, padx=5)
         self.btn_save.pack(side=tk.LEFT, padx=5)
         self.btn_run_next.pack(side=tk.LEFT, padx=5)
         self.btn_run_pipeline.pack(side=tk.LEFT, padx=5)
@@ -510,6 +512,12 @@ class SuperPromptGUI(tk.Tk):
         else:
             messagebox.showwarning("Không có file", "Không tìm thấy final_prompts_en/vi để export.")
 
+    def open_b0_form(self):
+        """
+        Mở popup form B0 để nhập ý tưởng (Tkinter window)
+        """
+        B0FormWindow(self)
+
     def open_base_dir(self):
         """
         Mở thư mục dự án (BASE_DIR) trong hệ thống.
@@ -523,6 +531,190 @@ class SuperPromptGUI(tk.Tk):
         else:
             os.system(f'xdg-open "{path}"')
 
+
+# =========================
+# B0 FORM POPUP WINDOW
+# =========================
+
+class B0FormWindow(tk.Toplevel):
+    """
+    Popup window cho B0 - Nhập ý tưởng phim/truyện
+    Hiển thị form đầy đủ với các trường theo yêu cầu
+    """
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.title("B0 – Nhập Ý Tưởng Phim/Truyện")
+        self.geometry("900x800")
+        self.configure(bg="#1e1e1e")
+
+        # Make it modal
+        self.transient(parent)
+        self.grab_set()
+
+        self._build_form()
+
+    def _build_form(self):
+        # Container với scrollbar
+        canvas = tk.Canvas(self, bg="#1e1e1e", highlightthickness=0)
+        scrollbar = ttk.Scrollbar(self, orient="vertical", command=canvas.yview)
+        scrollable_frame = ttk.Frame(canvas, style="Main.TFrame")
+
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        canvas.pack(side="left", fill="both", expand=True, padx=10, pady=10)
+        scrollbar.pack(side="right", fill="y")
+
+        # Form fields
+        self.fields = {}
+
+        # Title
+        tk.Label(scrollable_frame, text="🎬 B0 – NHẬP Ý TƯỞNG",
+                font=("Arial", 14, "bold"), bg="#1e1e1e", fg="#ffffff").pack(pady=10)
+
+        # Tên dự án
+        self._add_field(scrollable_frame, "title", "Tên dự án / phim:",
+                       "Ví dụ: The Fire of Fear – Kaijula Rises")
+
+        # Logline
+        self._add_field(scrollable_frame, "logline", "Logline (1 câu tóm tắt):",
+                       "Một câu tóm tắt hấp dẫn về câu chuyện...", height=3)
+
+        # Thế giới & bối cảnh
+        self._add_field(scrollable_frame, "world", "Thế giới & bối cảnh:",
+                       "Thời gian, địa điểm, công nghệ, phép thuật, quy tắc thế giới...", height=4)
+
+        # Nhân vật
+        self._add_field(scrollable_frame, "characters", "Nhân vật chính / phụ:",
+                       "- Nhân vật chính: tên, tuổi, mục tiêu\n- Nhân vật phụ: vai trò...", height=4)
+
+        # Theme & tone
+        self._add_field(scrollable_frame, "theme", "Theme & Tone:",
+                       "Ví dụ: Tình bạn, lòng dũng cảm, tone sử thi cảm động...", height=3)
+
+        # Ý nghĩa
+        self._add_field(scrollable_frame, "meaning", "Ý nghĩa / Thông điệp:",
+                       "Thông điệp muốn gửi gắm đến khán giả...", height=3)
+
+        # Act 1
+        self._add_field(scrollable_frame, "act1", "Act 1 – Mở đầu:",
+                       "Giới thiệu thế giới, nhân vật, sự kiện kích hoạt...", height=4)
+
+        # Act 2
+        self._add_field(scrollable_frame, "act2", "Act 2 – Xung đột & Leo thang:",
+                       "Chuỗi thử thách, twist, nhân vật thay đổi...", height=4)
+
+        # Act 3
+        self._add_field(scrollable_frame, "act3", "Act 3 – Cao trào & Kết thúc:",
+                       "Trận chiến cuối, quyết định lớn, kết cục...", height=4)
+
+        # Số CHAPTER
+        self._add_field(scrollable_frame, "chapters", "Số CHAPTER mong muốn:",
+                       "Ví dụ: 8", height=1)
+
+        # Số SCENE
+        self._add_field(scrollable_frame, "scenes", "Số SCENE mong muốn:",
+                       "Ví dụ: 24", height=1)
+
+        # Buttons
+        btn_frame = tk.Frame(scrollable_frame, bg="#1e1e1e")
+        btn_frame.pack(pady=20)
+
+        tk.Button(btn_frame, text="💾 Lưu story_idea.txt",
+                 command=self.save_story_idea,
+                 bg="#2563eb", fg="white", font=("Arial", 11, "bold"),
+                 padx=20, pady=10).pack(side=tk.LEFT, padx=5)
+
+        tk.Button(btn_frame, text="❌ Đóng",
+                 command=self.destroy,
+                 bg="#6b7280", fg="white", font=("Arial", 11),
+                 padx=20, pady=10).pack(side=tk.LEFT, padx=5)
+
+    def _add_field(self, parent, key, label, placeholder, height=1):
+        """Thêm một trường nhập liệu"""
+        frame = tk.Frame(parent, bg="#1e1e1e")
+        frame.pack(fill="x", padx=20, pady=8)
+
+        tk.Label(frame, text=label, bg="#1e1e1e", fg="#e5e7eb",
+                font=("Arial", 10, "bold")).pack(anchor="w")
+
+        if height == 1:
+            entry = tk.Entry(frame, bg="#111827", fg="#ffffff",
+                           insertbackground="#ffffff", font=("Arial", 10))
+            entry.pack(fill="x", pady=5)
+            entry.insert(0, placeholder)
+            entry.bind("<FocusIn>", lambda e: entry.delete(0, tk.END) if entry.get() == placeholder else None)
+        else:
+            entry = tk.Text(frame, bg="#111827", fg="#ffffff",
+                          insertbackground="#ffffff", font=("Arial", 10),
+                          height=height, wrap="word")
+            entry.pack(fill="x", pady=5)
+            entry.insert("1.0", placeholder)
+            entry.bind("<FocusIn>", lambda e: entry.delete("1.0", tk.END) if entry.get("1.0", tk.END).strip() == placeholder else None)
+
+        self.fields[key] = entry
+
+    def save_story_idea(self):
+        """Lưu nội dung form vào story_idea.txt"""
+        content_parts = []
+
+        # Build content
+        for key in ["title", "logline", "world", "characters", "theme", "meaning",
+                   "act1", "act2", "act3", "chapters", "scenes"]:
+            widget = self.fields[key]
+            if isinstance(widget, tk.Entry):
+                value = widget.get().strip()
+            else:
+                value = widget.get("1.0", tk.END).strip()
+
+            # Format theo key
+            if key == "title":
+                content_parts.append(f"TITLE: {value}")
+            elif key == "logline":
+                content_parts.append(f"\nLOGLINE:\n{value}")
+            elif key == "world":
+                content_parts.append(f"\nWORLD & SETTING:\n{value}")
+            elif key == "characters":
+                content_parts.append(f"\nCHARACTERS:\n{value}")
+            elif key == "theme":
+                content_parts.append(f"\nTHEME & TONE:\n{value}")
+            elif key == "meaning":
+                content_parts.append(f"\nMEANING:\n{value}")
+            elif key == "act1":
+                content_parts.append(f"\nACT 1 (Setup):\n{value}")
+            elif key == "act2":
+                content_parts.append(f"\nACT 2 (Conflict):\n{value}")
+            elif key == "act3":
+                content_parts.append(f"\nACT 3 (Resolution):\n{value}")
+            elif key == "chapters":
+                content_parts.append(f"\nEXPECTED CHAPTERS: {value}")
+            elif key == "scenes":
+                content_parts.append(f"EXPECTED SCENES: {value}")
+
+        final_content = "\n".join(content_parts)
+
+        # Save to file
+        story_idea_file = BASE_DIR / "story_idea.txt"
+        try:
+            story_idea_file.write_text(final_content, encoding="utf-8")
+            messagebox.showinfo("Đã lưu",
+                              f"✅ Đã lưu story_idea.txt!\n\n"
+                              f"Bạn có thể:\n"
+                              f"1. Chạy từng bước B1→B2→...\n"
+                              f"2. Hoặc bấm 🚀 Run B2→B6 (One-click)")
+            self.destroy()
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không thể lưu file:\n{e}")
+
+
+# =========================
+# MAIN ENTRY POINT
+# =========================
 
 def main():
     """
