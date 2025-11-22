@@ -47,8 +47,8 @@ def write_file(path: str, text: str):
 def generate_lock_in(story_idea: str) -> str:
     user_prompt = USER_PROMPT_TEMPLATE.format(story_idea=story_idea)
     response = call_gemini_text(
-        system_prompt=SYSTEM_PROMPT,
-        user_prompt=user_prompt
+        user_prompt,
+        system_instruction=SYSTEM_PROMPT
     )
     return response
 

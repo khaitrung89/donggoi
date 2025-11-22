@@ -201,9 +201,8 @@ def main():
 
         try:
             scenes_text = call_gemini_text(
-                prompt=user_prompt,
-                system_prompt=SYSTEM_PROMPT,
-                max_output_tokens=4096,
+                user_prompt,
+                system_instruction=SYSTEM_PROMPT
             )
         except Exception as e:
             print(f"❌ Lỗi khi gọi AI để tạo SCENES cho CHAPTER {chapter_index}.")

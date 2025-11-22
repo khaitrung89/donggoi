@@ -202,9 +202,8 @@ def main():
     print("🧠 Đang gọi AI để tạo outline CHAPTERS theo cấu trúc 6 phần + 3 quy tắc vàng...")
     try:
         chapters_text = call_gemini_text(
-            prompt=user_prompt,
-            system_prompt=SYSTEM_PROMPT,
-            max_output_tokens=8192,
+            user_prompt,
+            system_instruction=SYSTEM_PROMPT
         )
     except Exception as e:
         print("❌ Lỗi khi gọi AI:", e)
