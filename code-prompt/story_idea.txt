@@ -1,0 +1,32 @@
+TITLE:
+[Tiêu đề dự án / phim]
+
+LOGLINE:
+[Một câu logline tóm tắt toàn bộ câu chuyện]
+
+WORLD_AND_SETTING:
+[Mô tả thế giới, bối cảnh, thời đại, không khí chung]
+
+MAIN_AND_SUPPORTING_CHARACTERS:
+[Mô tả nhân vật chính & phụ, mỗi nhân vật 2–4 câu]
+
+THEME_AND_TONE:
+[Chủ đề, tone cảm xúc, mood của phim]
+
+MEANING_MESSAGE:
+[Ý nghĩa sâu hơn mà câu chuyện muốn nói]
+
+ACT_1_SETUP:
+[Tóm tắt Act 1 – mở đầu]
+
+ACT_2_CONFRONTATION:
+[Tóm tắt Act 2 – xung đột]
+
+ACT_3_RESOLUTION:
+[Tóm tắt Act 3 – cao trào & kết]
+
+EXPECTED_CHAPTER_COUNT:
+[Số CHAPTER / Tập dự kiến – ví dụ: 10]
+
+EXPECTED_SCENE_COUNT:
+[Số SCENE trung bình / 1 tập – ví dụ: 8–12, hoặc một con số ước lượng]
