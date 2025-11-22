@@ -2,6 +2,8 @@ import os
 import sys
 from pathlib import Path
 import importlib
+import subprocess
+import threading
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 
@@ -28,7 +30,7 @@ STEP_FILES = {
 STEP_ACTIONS = {
     "B0": ("generate_story_idea_from_seed", "main"),         # B0 -> B1
     "B1": ("generate_story_lock_in", "main"),                # B1 -> B2
-    "B2": ("generate_chapters", "main"),                     # B2 -> B3
+    "B2": ("generate_chapters_from_idea", "main"),           # B2 -> B3 (FIXED)
     "B3": ("generate_scenes_from_chapters", "main"),         # B3 -> B4
     "B4": ("generate_prompts", "main"),                      # B4 -> B5
     "B5": ("postprocess_output_prompts", "main"),            # B5 -> B6
@@ -113,6 +115,9 @@ class SuperPromptGUI(tk.Tk):
         self.current_step = "B0"
         # Riêng B7 có 2 chế độ xem: EN / VI
         self.b7_lang = tk.StringVar(value="EN")
+
+        # Flag để track trạng thái chạy pipeline
+        self.is_running = False
 
         # Thiết lập theme đơn giản kiểu dark
         self._setup_theme()
@@ -265,10 +270,12 @@ class SuperPromptGUI(tk.Tk):
 
         self.btn_save = ttk.Button(action_frame, text="💾 Save", command=self.save_current_step)
         self.btn_run_next = ttk.Button(action_frame, text="▶ Run Next Step", command=self.run_next_step)
+        self.btn_run_pipeline = ttk.Button(action_frame, text="🚀 Run B2→B6 (One-click)", command=self.run_full_pipeline)
         self.btn_export = ttk.Button(action_frame, text="📤 Export Final", command=self.export_final)
 
         self.btn_save.pack(side=tk.LEFT, padx=5)
         self.btn_run_next.pack(side=tk.LEFT, padx=5)
+        self.btn_run_pipeline.pack(side=tk.LEFT, padx=5)
         self.btn_export.pack(side=tk.RIGHT, padx=5)
 
         # Mặc định B7 export button chỉ thực sự hữu ích ở bước B7
@@ -403,6 +410,73 @@ class SuperPromptGUI(tk.Tk):
         else:
             messagebox.showinfo("Hoàn tất", "Pipeline đã đến bước cuối cùng.")
 
+    def run_full_pipeline(self):
+        """
+        Chạy toàn bộ pipeline B2 → B6 một lần (One-click mode)
+        Yêu cầu: story_idea.txt đã có (tức B0/B1 đã hoàn tất)
+        """
+        # Kiểm tra story_idea.txt
+        story_idea_file = BASE_DIR / "story_idea.txt"
+        if not story_idea_file.exists() or not story_idea_file.read_text(encoding="utf-8").strip():
+            messagebox.showwarning(
+                "Thiếu story_idea.txt",
+                "Chưa có story_idea.txt hoặc file trống.\n"
+                "Hãy hoàn tất B0 (Nhập ý tưởng) trước khi chạy pipeline."
+            )
+            return
+
+        # Kiểm tra đang chạy
+        if self.is_running:
+            messagebox.showinfo("Đang chạy", "Đang có tiến trình khác đang chạy. Vui lòng đợi.")
+            return
+
+        self.is_running = True
+
+        # Danh sách các bước cần chạy
+        steps = [
+            ("generate_chapters_from_idea", "main", "B2 - Generate CHAPTERS"),
+            ("generate_scenes_from_chapters", "main", "B3 - Generate SCENES"),
+            ("generate_prompts", "main", "B4 - Generate PROMPTS"),
+            ("postprocess_output_prompts", "main", "B5 - Postprocess PROMPTS"),
+            ("translate_prompts", "main", "B6 - Translate PROMPTS"),
+        ]
+
+        def worker():
+            try:
+                for module_name, func_name, label in steps:
+                    print(f"\n▶️ ĐANG CHẠY {label} ({module_name}.{func_name})...")
+
+                    try:
+                        mod = importlib.import_module(module_name)
+                        func = getattr(mod, func_name, None)
+                        if not callable(func):
+                            messagebox.showerror("Lỗi", f"Module '{module_name}' không có hàm '{func_name}'.")
+                            return
+                        func()
+                        print(f"✅ {label} hoàn thành.")
+                    except Exception as e:
+                        messagebox.showerror("Lỗi", f"Lỗi khi chạy {label}:\n{e}")
+                        return
+
+                # Hoàn tất
+                messagebox.showinfo(
+                    "Hoàn tất Pipeline",
+                    "🎉 Đã chạy xong toàn bộ pipeline B2→B6!\n\n"
+                    "File output:\n"
+                    "- output_prompts_clean.txt (MASTER EN)\n"
+                    "- final_prompts_en.txt\n"
+                    "- final_prompts_vi.txt"
+                )
+
+                # Tự động chuyển sang B7 để xem kết quả
+                self.switch_step("B7")
+
+            finally:
+                self.is_running = False
+
+        # Chạy trong thread riêng để không block GUI
+        threading.Thread(target=worker, daemon=True).start()
+
     def export_final(self):
         """
         B7 – cho phép export toàn bộ file final_prompts_en.txt & final_prompts_vi.txt
@@ -450,6 +524,14 @@ class SuperPromptGUI(tk.Tk):
             os.system(f'xdg-open "{path}"')
 
 
-if __name__ == "__main__":
+def main():
+    """
+    Entry point for GUI application.
+    Called by main.py after license verification.
+    """
     app = SuperPromptGUI()
     app.mainloop()
+
+
+if __name__ == "__main__":
+    main()
