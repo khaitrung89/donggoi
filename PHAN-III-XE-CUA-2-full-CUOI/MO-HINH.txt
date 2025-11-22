@@ -1,0 +1,147 @@
+Sơ đồ tổng thể (ASCII)
+          [0] Ý TƯỞNG + THẾ GIỚI + NHÂN VẬT
+                        │
+                        ▼
+            story_idea_form.html  (Form nhập)
+            (Điền xong → copy)
+                        │
+                        ▼
+                story_idea.txt
+        (Text chuẩn format, có 3 hồi, số chương mong muốn)
+                        │
+                        ▼
+        ┌────────────────────────────────────┐
+        │ 1) generate_chapters_from_idea.py │
+        │    → sinh CHAPTER 1..N (EN)       │
+        └───────────────┬───────────────────┘
+                        │
+                        ▼
+                  chapters.txt  (EN)
+                        │
+                        ▼
+        ┌───────────────────────────────────────┐
+        │ 2) generate_scenes_from_chapters.py   │
+        │    → sinh Scene 1..X (EN)             │
+        │      (chọn tổng số cảnh: 40/70/100+) │
+        └────────────────┬──────────────────────┘
+                         │
+                         ▼
+                    scenes.txt  (EN)
+                         │
+                         ▼
+       ┌─────────────────────────────────────────────┐
+       │ 3) generate_prompts.py (SUPER LITE, EN)     │
+       │    - Epic camera (wide/medium, close-up)    │
+       │    - POV: third_person, over_shoulder...    │
+       │    - Close-up → LANA2/ADAI2/ASUKA2          │
+       └───────────────────┬────────────────────────┘
+                           │
+                           ▼
+                  output_prompts.txt  (EN – thô)
+                           │
+                           ▼
+       ┌─────────────────────────────────────────────┐
+       │ 4) postprocess_output_prompts.py            │
+       │    - Chuẩn hóa tên: LANA/ADAI/ASUKA         │
+       │    - Giữ logic Name2 cho close-up           │
+       │    - Chuẩn hóa shot_type, pov, voice_tone  │
+       └────────────────────┬───────────────────────┘
+                            │
+                            ▼
+              output_prompts_clean.txt  (EN – chuẩn)
+                            │
+                            ▼
+       ┌─────────────────────────────────────────────┐
+       │ 5) translate_prompts.py                     │
+       │    - Input: output_prompts_clean.txt (EN)   │
+       │    - Giữ nguyên cấu trúc JSON               │
+       │    - Dịch NỘI DUNG sang tiếng Việt          │
+       └──────────────┬─────────────────────────────┘
+                      │
+          ┌───────────┴─────────────┐
+          ▼                         ▼
+final_prompts_en.txt         final_prompts_vi.txt
+(EN – copy từ clean)        (VI – JSON đã dịch nội dung)
+          │                         │
+          └─────────────┬───────────┘
+                        ▼
+       Dùng cho VEO / Sora / Dreamina / Sub / Voice
+
+🌐 Ngôn ngữ ở từng bước
+🔹 Zone 1 – Ý tưởng, người dùng nhập
+
+story_idea_form.html: bạn có thể gõ tiếng Việt, tiếng Anh, trộn đều được
+
+story_idea.txt: nội dung có thể Việt/Anh
+→ nhưng script sẽ yêu cầu model nghĩ & trả lời bằng tiếng Anh từ bước 1 trở đi.
+
+🔹 Zone 2 – Tất cả logic chính: EN ONLY
+
+chapters.txt → Tiếng Anh
+
+scenes.txt → Tiếng Anh
+
+output_prompts.txt → Tiếng Anh
+
+output_prompts_clean.txt → Tiếng Anh chuẩn, dùng được ngay cho AI video
+
+👉 Đây là “Layer logic”: shot_type, pov, focus, camera, action_block… tất cả đều tiếng Anh.
+
+🔹 Zone 3 – Lớp dịch 2 ngôn ngữ
+
+translate_prompts.py tạo ra:
+
+final_prompts_en.txt
+
+Copy 100% từ output_prompts_clean.txt
+
+Bạn dùng file này để:
+
+Nạp vào VEO / Sora / Dreamina / v.v.
+
+Hoặc lưu trữ làm “master EN script”
+
+final_prompts_vi.txt
+
+JSON giữ nguyên structure, giữ nguyên key, giữ nguyên shot_type, pov, focus_characters
+
+Chỉ dịch:
+
+scene_title
+
+scene_summary
+
+character.emotions, voice_tone
+
+cinematic.text (camera, lighting, movement, environment – nếu bạn muốn hiểu)
+
+dialogue lines
+
+action_block.content
+
+👉 File này dùng cực hợp lý cho:
+
+Phụ đề tiếng Việt
+
+Voice-over tiếng Việt (TTS)
+
+In ra cho người đọc kịch bản
+
+🎯 Tóm lại quy trình dùng hằng ngày
+
+Đổi ý tưởng, world, nhân vật → sửa trong story_idea_form.html → copy vào story_idea.txt
+
+Chạy:
+
+python generate_chapters_from_idea.py
+python generate_scenes_from_chapters.py
+python generate_prompts.py
+python postprocess_output_prompts.py
+python translate_prompts.py
+
+
+Lấy:
+
+final_prompts_en.txt → feed cho AI video
+
+final_prompts_vi.txt → làm phụ đề / voice / docs

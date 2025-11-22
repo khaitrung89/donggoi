@@ -1,0 +1,86 @@
+========================================================
+              CHAPTERS – EDITABLE VERSION
+  (Bạn có thể sửa mọi nội dung, đặc biệt là Scene Count)
+========================================================
+
+
+=== CHAPTER 1: [Tên tập phim] ===
+
+1. MISSION (Nhiệm vụ chính)
+- [Một câu duy nhất rất rõ ràng]
+
+2. COLD OPEN (Cảnh mở đầu gây sốc)
+- [2–4 câu hook mạnh]
+
+3. ACT 1 – SETUP (Khởi đầu)
+- [Thiết lập nhiệm vụ, bối cảnh, trạng thái hiện tại]
+
+4. ACT 2 – CONFLICT + TWIST (Xung đột + Twist)
+- [Các trở ngại tăng dần]
+- [TWIST bắt buộc]
+
+5. ACT 3 – CLIMAX (Đỉnh điểm)
+- [Khoảnh khắc căng nhất, quyết định nhất]
+
+6. ACT 4 – RESOLUTION (Dư âm)
+- [Hậu quả – cảm xúc – bài học trong tập]
+
+7. CLIFFHANGER (Treo tập sau)
+- [Cài bẫy, tiết lộ gây sốc]
+
+8. EPISODE MEANING / MESSAGE (Ý nghĩa của tập)
+- [Thông điệp muốn gửi đến người xem]
+
+9. DESIRED SCENE COUNT (Số lượng cảnh bạn muốn)
+>>> [enter number here]
+
+10. NOTES (ghi chú)
+- [ghi chú 1]
+- [ghi chú 2]
+
+
+--------------------------------------------------------
+
+
+=== CHAPTER 2: [Tên tập phim] ===
+
+1. MISSION (Nhiệm vụ chính)
+- [...]
+
+2. COLD OPEN
+- [...]
+
+3. ACT 1 – SETUP
+- [...]
+
+4. ACT 2 – TWIST
+- [...]
+
+5. ACT 3 – CLIMAX
+- [...]
+
+6. ACT 4 – RESOLUTION
+- [...]
+
+7. CLIFFHANGER
+- [...]
+
+8. EPISODE MEANING
+- [...]
+
+9. DESIRED SCENE COUNT
+>>> [enter number here]
+
+10. NOTES
+- [...]
+
+--------------------------------------------------------
+
+
+=== CHAPTER 3: [Tên tập phim] ===
+[lặp lại giống trên]
+
+--------------------------------------------------------
+
+# (AI sẽ sinh bao nhiêu chapter tùy theo STORY LOCK-IN)
+# Bạn có thể sửa, xóa, thêm bao nhiêu tùy ý.

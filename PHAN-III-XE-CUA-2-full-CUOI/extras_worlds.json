@@ -1,0 +1,111 @@
+{
+  "modern": {
+    "roles": [
+      {
+        "id_prefix": "receptionist",
+        "role": "young receptionist",
+        "appearance": "neat blouse, black skirt, ID badge, tied-back hair, polite expression"
+      },
+      {
+        "id_prefix": "office_worker",
+        "role": "tired office worker",
+        "appearance": "wrinkled shirt, laptop bag, messy hair, stressed look"
+      },
+      {
+        "id_prefix": "security_guard",
+        "role": "building security guard",
+        "appearance": "dark navy uniform, utility belt, short hair, calm and observant"
+      },
+      {
+        "id_prefix": "driver",
+        "role": "taxi driver",
+        "appearance": "mid-aged, polo shirt, jacket, slightly unshaven look, friendly attitude"
+      },
+      {
+        "id_prefix": "doctor",
+        "role": "hospital doctor",
+        "appearance": "white lab coat, stethoscope, clean hair, focused expression"
+      },
+      {
+        "id_prefix": "nurse",
+        "role": "nurse",
+        "appearance": "mint scrubs, ponytail hair, gentle demeanor, soft expression"
+      },
+      {
+        "id_prefix": "street_vendor",
+        "role": "street vendor",
+        "appearance": "sunhat, casual clothes, apron, tanned skin, energetic mood"
+      }
+    ]
+  },
+
+  "medieval": {
+    "roles": [
+      {
+        "id_prefix": "maid",
+        "role": "palace maid",
+        "appearance": "simple pastel-colored hanfu, braided hair, shy gaze"
+      },
+      {
+        "id_prefix": "eunuch",
+        "role": "palace eunuch",
+        "appearance": "long robe, sharp eyes, thin build, calm posture"
+      },
+      {
+        "id_prefix": "soldier",
+        "role": "castle soldier",
+        "appearance": "leather armor, short sword, firm posture, helmet on head"
+      },
+      {
+        "id_prefix": "villager",
+        "role": "peasant villager",
+        "appearance": "coarse hemp clothes, worn sandals, tired expression"
+      },
+      {
+        "id_prefix": "merchant",
+        "role": "traveling merchant",
+        "appearance": "layered robes, money pouch, mustache, confident tone"
+      },
+      {
+        "id_prefix": "monk",
+        "role": "temple monk",
+        "appearance": "grey robe, wooden beads necklace, shaved head, serene eyes"
+      }
+    ]
+  },
+
+  "fantasy": {
+    "roles": [
+      {
+        "id_prefix": "fairy",
+        "role": "forest fairy",
+        "appearance": "glowing wings, long silver hair, delicate dress, sparkling aura"
+      },
+      {
+        "id_prefix": "sage",
+        "role": "mountain sage",
+        "appearance": "long white beard, staff, deep robe, ancient and wise expression"
+      },
+      {
+        "id_prefix": "shadow_creature",
+        "role": "shadow creature",
+        "appearance": "dark smoky body, glowing eyes, ethereal movement"
+      },
+      {
+        "id_prefix": "elf_archer",
+        "role": "elven archer",
+        "appearance": "leaf-pattern armor, long bow, sharp ears, elegant figure"
+      },
+      {
+        "id_prefix": "beastman",
+        "role": "beastman warrior",
+        "appearance": "fur-lined armor, muscular build, claws, fierce eyes"
+      },
+      {
+        "id_prefix": "spirit_priestess",
+        "role": "spirit priestess",
+        "appearance": "flowing white gown, magical tattoos, floating hair strands"
+      }
+    ]
+  }
+}

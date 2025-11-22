@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Nhập Ý Tưởng – Story Idea Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e1e;
+            color: #f0f0f0;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        textarea {
+            width: 100%;
+            height: 280px;
+            background: #111;
+            color: #fff;
+            padding: 12px;
+            border: 1px solid #444;
+            font-size: 15px;
+        }
+        button {
+            padding: 10px 16px;
+            font-size: 15px;
+            background: #3e3e3e;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background: #555;
+            cursor: pointer;
+        }
+        .box {
+            max-width: 900px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>NHẬP Ý TƯỞNG CÂU CHUYỆN (B0)</h2>
+
+    <p>Nhập ý tưởng tổng quan của phim. AI sẽ tự xử lý theo format chuẩn trong pipeline B1 → B6.</p>
+
+    <textarea id="idea_box" placeholder="Nhập ý tưởng tóm tắt tại đây..."></textarea>
+
+    <br><br>
+
+    <button onclick="saveIdea()">💾 Lưu story_idea.txt</button>
+
+    <script>
+        function saveIdea() {
+            const text = document.getElementById("idea_box").value;
+
+            const blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "story_idea.txt";
+            link.click();
+
+            alert("Đã lưu story_idea.txt — hãy quay lại tool và bấm B1 để mở file.");
+        }
+    </script>
+</div>
+
+</body>
+</html>
